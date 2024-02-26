@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        body {
+          background-color:#717D7E;
+}
+
+.btn-login {
+  font-size: 0.9rem;
+  letter-spacing: 0.05rem;
+  padding: 0.75rem 1rem;
+}
+
+.btn-google {
+  color: white !important;
+  background-color: #ea4335;
+}
+
+.btn-facebook {
+  color: white !important;
+  background-color: #3b5998;
+}
+.logo{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+    </style>
+
+{% if msg %}
+<script>
+
+    alert("{{msg}}");
+</script>
+{% endif %}
+</head>
+<body>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
+          <div class="card border-0 shadow rounded-3 my-5">
+            <div class="card-body p-4 p-sm-5">
+                <div class="text-center">
+
+                    <img class="logo" src="{% static 'logo.png' %}" alt="">
+                </div>
+              <h3 class="card-title text-center my-2 mb-3">{% block header %}{% endblock header %}</h3>
+                {% block content %}{% endblock content %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

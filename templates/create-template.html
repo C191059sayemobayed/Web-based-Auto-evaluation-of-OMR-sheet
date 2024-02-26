@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+
+{% block title %}
+OMR - Create Template
+{% endblock title %}
+
+{% block heading %} 
+Create Template
+{% endblock heading %}
+
+
+{% block content %}
+<div class="container">
+   
+</div>
+
+<div class="container">
+    <form class="row g-3 mt-4" method="post" enctype="multipart/form-data">
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Subject</label>
+          <input type="text" class="form-control" id="inputEmail4" name="subject">
+        </div>
+        <div class="col-md-6">
+          <label for="inputPassword4" class="form-label">Dept</label>
+          <input type="text" class="form-control" id="inputEmail4" name="dept">
+         
+        </div>
+{% csrf_token %}
+
+
+        <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Batch</label>
+            <input type="number" class="form-control" id="inputEmail4" name="batch">
+          </div>
+
+
+          
+          <div class="col-md-6">
+            <label for="inputEmail4" class="form-label">Examiner</label>
+            <input type="text" class="form-control" id="inputEmail4" name="examiner">
+          </div>
+          <div class="col-md-6">
+            <label for="inputPassword4" class="form-label">Code</label>
+            <input type="text" class="form-control" id="inputEmail4" name="code">
+            
+          </div>
+
+          <div class="col-md-12">
+            <label for="inputPassword4" class="form-label">Upload File</label>
+            <input type="file" class="form-control" id="file_img" name="result_sheet">
+            
+          </div>
+          <div class="col-md-12 text-center">
+            <img src="/static/logo.png" height="250" width="250"  alt="" id="result_img" style="display: none;">
+            
+          </div>
+       
+
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-dark">Save</button>
+        </div>
+      </form>
+</div>
+  
+
+
+<style>
+    #spnner{
+      position: fixed;
+      top: 0;
+      right: 0;
+      height: 100%;
+      width: 100%;
+      background-color: #fff;
+      opacity: 0.9;
+      z-index: 1;
+    }
+    #spnner .main{
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      left: 50%;
+    }
+    .inactive{
+      display: none;
+    }
+  </style>
+        <div id="spnner" class="inactive">
+            <div class="main">
+            <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status"> </div>
+                    Loading...
+            </div>
+         </div>
+<script>
+    
+    var csrfmiddlewaretoken = "{{csrf_token}}";
+    $('#file_img').change((e)=>{
+        console.log("asdsad");
+        var formData = new FormData()
+        formData.append("file",e.currentTarget.files[0])
+        formData.append("csrfmiddlewaretoken",csrfmiddlewaretoken)
+
+        $.ajax({
+            url:"?img_lookUp=True",
+            method:"POST",
+            data:formData,
+            cache: false,
+            processData: false,
+            contentType: false,
+            beforeSend:(e)=>{
+                // document.write("asdad")
+                $("#spnner").removeClass("inactive");
+            },
+            success:(e)=>{
+                $("#spnner").addClass("inactive");
+                $("#result_img").show()
+                $("#result_img").attr("src",`data:image/png;base64,${e.img_b64}`)
+            },
+            error:(e)=>{
+                $("#spnner").addClass("inactive");
+                alert("Faild Connection... Please try again later...");
+            }
+        })
+    })
+</script>
+{% endblock content %}

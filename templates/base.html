@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="icon" type="image/x-icon" href="{% static "logo.png" %}">
+    <link href="{% static "bootstrap.min.css" %}" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<style>
+            body {
+                background-color:#717D7E    
+                /* background: #e8cbc0;
+                 background: -webkit-linear-gradient(to right, #e8cbc0, #636fa4);
+                 background: linear-gradient(to right, #e8cbc0, #636fa4);
+                 min-height: 100vh;*/
+        }
+        
+</style>
+</head>
+<body class="py-5">
+    <div class="container text-center">
+        <h1 class="my-2  display-4">
+            {% block heading %} {% endblock heading %}
+        </h1>
+    </div>
+
+    {% block content %}{% endblock content %}
+
+    <footer style="position: fixed; bottom: 0; left: 0;width: 100%;"  class="text-center bg-dark text-white py-1">
+        <i>Copyright © 2024 OMR Inc. All rights reserved.</i>
+    </footer>
+
+    {% if messages %}
+    <script>
+        {% for message in messages %}
+                alert("{{ message.message }}")
+                {% endfor %}
+    </script>
+    {% endif %}
+</body>
+</html>
